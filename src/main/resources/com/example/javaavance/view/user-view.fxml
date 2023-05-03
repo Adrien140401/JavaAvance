@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaavance.controller.HomeController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label fx:id="welcomeText" text="Welcome ChezFlo" />
+   <Label text="Votre prénom :" />
+   <Label fx:id="lblName" />
+   <TextField fx:id="txtClientName" />
+   <Button fx:id="btnValidateName" mnemonicParsing="false" onMousePressed="#onPressedValidate" text="Valider" />
+   <Button fx:id="btnNavigateTable" mnemonicParsing="false" onAction="#switchScene" text="Table" />
+</VBox>
