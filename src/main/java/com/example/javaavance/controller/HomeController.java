@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.json.*;
 
@@ -23,12 +22,14 @@ public class HomeController {
     private TextField txtClientName;
     @FXML
     private Button btnNavigateTable;
+    @FXML
+    private Label lblName;
     private Stage stage;
     private Scene scene;
     private Parent root;
     String path = "./json/client.json";
 
-    Client client = new Client("Adrien");
+    Client client = new Client("");
 
     JSONArray list = new JSONArray();
 
@@ -43,11 +44,13 @@ public class HomeController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(list);
+
+        lblName.setText(client.name + " a été ajouté à la liste des clients");
+
         //List<Client> clients = List.of(client).stream()
     }
 
-    public void switchScene(ActionEvent event) throws IOException {
+    public void switchSceneToTableController(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/com/example/javaavance/view/table-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

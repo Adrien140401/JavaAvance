@@ -23,7 +23,7 @@
           <execution>
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.example.javaavance/com.example.javaavance.model.Home</mainClass>
+              <mainClass>com.example.javaavance/com.example.javaavance.Home</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

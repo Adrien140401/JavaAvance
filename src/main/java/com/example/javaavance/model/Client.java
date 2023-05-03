@@ -14,15 +14,9 @@ public class Client {
         this.name = name;
     }
 
-
     // Getter de l'attribut String name
     public String getName() {
         return name;
-    }
-
-    // Setter de l'attribut String name
-    public void setName(String name) {
-        this.name = name;
     }
 
     public JSONObject toJSON() {

@@ -16,5 +16,5 @@
    <Label fx:id="lblName" />
    <TextField fx:id="txtClientName" />
    <Button fx:id="btnValidateName" mnemonicParsing="false" onMousePressed="#onPressedValidate" text="Valider" />
-   <Button fx:id="btnNavigateTable" mnemonicParsing="false" onAction="#switchScene" text="Table" />
+   <Button fx:id="btnNavigateTable" mnemonicParsing="false" onAction="#switchSceneToTableController" text="Table" />
 </VBox>
