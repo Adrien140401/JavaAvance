@@ -8,9 +8,15 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/.name
+.idea/misc.xml
+.idea/encodings.xml
 *.iws
 *.iml
 *.ipr
+
 
 ### Eclipse ###
 .apt_generated
