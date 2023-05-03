@@ -6,7 +6,7 @@
 
     <groupId>com.example</groupId>
     <artifactId>javaAvance</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0.0</version>
     <name>javaAvance</name>
 
     <properties>
@@ -38,6 +38,23 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.akathist.maven.plugins.launch4j</groupId>
+            <artifactId>launch4j-maven-plugin</artifactId>
+            <version>2.4.1</version>
+            <type>maven-plugin</type>
+        </dependency>
+
+
+
+
     </dependencies>
 
     <build>
@@ -60,13 +77,69 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.javaavance/com.example.javaavance.HelloApplication</mainClass>
+                            <mainClass>com/example/javaavance/Home.java</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Main-Class>com.example.javaavance.Home</Main-Class>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>l4j-clui</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>console</headerType>
+                            <jar>target/original-javaAvance-1.0.0.0.jar</jar>
+                            <outfile>target/CameraControl.exe</outfile>
+                            <classPath>
+                                <mainClass>com.example.javaavance.Home</mainClass>
+                            </classPath>
+                            <jre>
+                             <path>/Users/floriancohen-joly/Downloads/jdk-20.0.1.jdk2/Contents/Home/bin</path>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>1.0.0.0</fileVersion>
+                                <txtFileVersion>${project.version}</txtFileVersion>
+                                <fileDescription>${project.name}</fileDescription>
+                                <copyright>C</copyright>
+                                <productVersion>1.0.0.0</productVersion>
+                                <txtProductVersion>1.0.0.0</txtProductVersion>
+                                <productName>${project.name}</productName>
+                                <internalName>AppName</internalName>
+                                <originalFilename>CameraControl.exe</originalFilename>
+                            </versionInfo>
                         </configuration>
                     </execution>
                 </executions>
