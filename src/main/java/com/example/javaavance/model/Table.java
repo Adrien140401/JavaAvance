@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 public class Table{
 
+    //Constructeur
     public Table(int numeroTable, int places, String emplacement, boolean disponibilite) {
         this.numeroTable = numeroTable;
         this.places = places;
@@ -11,11 +12,13 @@ public class Table{
         this.disponibilite = disponibilite;
     }
 
+    // Attributes
     private int numeroTable;
     private int places;
     private String emplacement;
     private boolean disponibilite;
 
+    // Getter & Setter
     public int getPlaces() {
         return places;
     }
@@ -48,6 +51,7 @@ public class Table{
         this.numeroTable = numeroTable;
     }
 
+    // Méthode toJSON() qui retourne un objet JSON
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("places", places);
@@ -56,6 +60,8 @@ public class Table{
         json.put("numeroTable", numeroTable);
         return json;
     }
+
+    // Redéfinition de la méthode toString() pour afficher les valeurs de l'objet
     @Override
     public String toString() {
         return "Table " + numeroTable + " (" + places + " places, " + emplacement + ")";

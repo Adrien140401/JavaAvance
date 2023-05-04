@@ -3,7 +3,6 @@ package com.example.javaavance.controller;
 import java.net.URL;
 import java.util.*;
 
-import com.example.javaavance.model.Client;
 import com.example.javaavance.model.Table;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,25 +13,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import org.json.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.stream.Collectors;
 
-public class TableController implements Initializable {
+public class TableController{
     private Scene scene;
     private Stage stage;
     private Parent root;
 
-    @FXML
-    private ListView lvListUser;
     @FXML
     private ListView lvListTable;
     @FXML
@@ -85,7 +80,6 @@ public class TableController implements Initializable {
         }
 
         JSONArray json = new JSONArray(dataJson);
-        System.out.println(json);
         List<Table> tableList = new ArrayList<>();
 
         for(int i = 0; i < json.length(); i++) {
@@ -97,16 +91,41 @@ public class TableController implements Initializable {
         ObservableList<Table> observableTableList = FXCollections.observableArrayList(tableList);
 
         lvListTable.setItems(observableTableList);
-    }
 
-    public void assignTable(ActionEvent actionEvent) {
-
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-
+        // Créer un bouton "Supprimer" pour chaque élément de la liste
+        Callback<ListView<Table>, ListCell<Table>> cellFactory = new Callback<>() {
+            public ListCell<Table> call(ListView<Table> lvListTable) {
+                return new ListCell<>() {
+                    @Override
+                    public void updateItem(Table table, boolean empty) {
+                        super.updateItem(table, empty);
+                        if (!empty) {
+                            Button deleteBtn = new Button("Supprimer");
+                            deleteBtn.setOnAction(event -> {
+                                // Récupérer l'élément sélectionné
+                                Table selectedTable = lvListTable.getSelectionModel().getSelectedItem();
+                                // Supprimer l'élément de la liste
+                                lvListTable.getItems().remove(selectedTable);
+                                // Mettre à jour le fichier JSON
+                                JSONArray json = new JSONArray(lvListTable.getItems());
+                                try (FileWriter file = new FileWriter(path)) {
+                                    file.write(json.toString());
+                                    file.flush();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            });
+                            setGraphic(deleteBtn);
+                            setText(table.toString());
+                        } else {
+                            setGraphic(null);
+                            setText(null);
+                        }
+                    }
+                };
+            }
+        };
+        // Appliquer la factory de cellule à la ListView
+        lvListTable.setCellFactory(cellFactory);
     }
 }

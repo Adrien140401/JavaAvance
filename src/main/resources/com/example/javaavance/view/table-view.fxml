@@ -31,7 +31,7 @@
                         <Label text="Assigner table : " />
                         <TextField fx:id="txtLibreTable" prefHeight="20.0" prefWidth="160.0" />
                         <ListView fx:id="lvListUser" prefHeight="100.0" prefWidth="185.0" />
-                        <Button mnemonicParsing="false" onAction="#assignTable" text="Assigne" />
+                        <Button mnemonicParsing="false" text="Assigne" />
                      </children>
                   </HBox>
                </children>
