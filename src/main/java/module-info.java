@@ -6,6 +6,5 @@ module com.example.javaavance {
 
     opens com.example.javaavance to javafx.fxml;
     exports com.example.javaavance;
-    exports com.example.javaavance.controller;
     opens com.example.javaavance.controller to javafx.fxml;
 }
