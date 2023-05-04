@@ -57,6 +57,8 @@ public class Hellocontroller {
                 prix1.add(String.valueOf(myjsonobject.getInt("prix")));
                 stocks.add(String.valueOf(stock));
                 descs.add(myjsonobject.getString("description"));
+            } else {
+                plats.add(myjsonobject.getString("plat") + " (indisponible)");
             }
         });
 
@@ -77,9 +79,6 @@ public class Hellocontroller {
                 .reduce("", (acc, stock) -> acc + "\n" + stock)
                 .replaceAll("[^\\d]", ""));
         platsliststock.setText(platstock + "\n");
-    }
-
-    public void createplat(ActionEvent actionEvent) {
     }
 }
 
