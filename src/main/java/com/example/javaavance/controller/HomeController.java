@@ -29,14 +29,22 @@ public class HomeController {
     private Parent root;
     String path = "./json/client.json";
 
-    Client client = new Client("");
+    Client client = new Client("", 0);
 
     JSONArray list = new JSONArray();
+
+    public void switchSceneToTableController(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("/com/example/javaavance/view/table-view.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     public void onPressedValidate() throws IOException {
 
         client.name = txtClientName.getText();
-        list.put(new Client(client.name).toJSON());
+        list.put(new Client(client.name, client.assigne).toJSON());
 
         try(FileWriter file = new FileWriter(path)) {
             file.write(list.toString());
@@ -48,14 +56,6 @@ public class HomeController {
         lblName.setText(client.name + " a été ajouté à la liste des clients");
 
         //List<Client> clients = List.of(client).stream()
-    }
-
-    public void switchSceneToTableController(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/com/example/javaavance/view/table-view.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
 }

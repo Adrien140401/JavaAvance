@@ -2,21 +2,19 @@ package com.example.javaavance.model;
 
 import org.json.JSONObject;
 
-public class Table {
+public class Table{
+
+    public Table(int numeroTable, int places, String emplacement, boolean disponibilite) {
+        this.numeroTable = numeroTable;
+        this.places = places;
+        this.emplacement = emplacement;
+        this.disponibilite = disponibilite;
+    }
 
     private int numeroTable;
     private int places;
     private String emplacement;
     private boolean disponibilite;
-    private String assignation;
-
-    public String getAssignation() {
-        return assignation;
-    }
-
-    public void setAssignation(String assignation) {
-        this.assignation = assignation;
-    }
 
     public int getPlaces() {
         return places;
@@ -50,14 +48,6 @@ public class Table {
         this.numeroTable = numeroTable;
     }
 
-    public Table(int places, String emplacement, boolean disponibilite, int numeroTable, String assignation) {
-        this.places = places;
-        this.emplacement = emplacement;
-        this.disponibilite = disponibilite;
-        this.numeroTable = numeroTable;
-        this.assignation = assignation;
-    }
-
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("places", places);
@@ -65,5 +55,9 @@ public class Table {
         json.put("disponibilite", disponibilite);
         json.put("numeroTable", numeroTable);
         return json;
+    }
+    @Override
+    public String toString() {
+        return "Table " + numeroTable + " (" + places + " places, " + emplacement + ")";
     }
 }
