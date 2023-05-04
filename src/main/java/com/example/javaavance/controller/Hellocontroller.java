@@ -15,7 +15,10 @@ import java.util.EventObject;
 import java.util.List;
 import java.util.ArrayList;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.json.*;
 
@@ -32,9 +35,6 @@ public class Hellocontroller {
 
     @FXML
     private Label platslistdesc;
-
-    @FXML
-    private Button createPlatButton;
 
     public void initialize() {
         String datajson = "[]";

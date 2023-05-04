@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.Plat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,30 +35,30 @@ public class Addplatcontroller {
     @FXML
     private TextField descField;
 
-    public void savePlat(ActionEvent event) throws JSONException, IOException {
-        // Récupérer les données des champs
-        String plat = platField.getText();
-        int prix = Integer.parseInt(prixField.getText());
-        int stock = Integer.parseInt(stockField.getText());
-        String desc = descField.getText();
+    public class PlatManager {
+        public void ajouterPlat(String image, String nomPlat, String description, int prix, int stock) throws Exception {
+            // Charger le fichier JSON existant
+            String datajson = new String(Files.readAllBytes(Paths.get("./json/plat.json")));
+            JSONArray jsonArray = new JSONArray(datajson);
 
-        // Charger le fichier JSON existant
-        String datajson = new String(Files.readAllBytes(Paths.get("./json/plat.json")));
-        JSONArray jsonArray = new JSONArray(datajson);
+            // Créer un nouvel objet Plat avec les données des champs
+            Plat plat = new Plat(image, nomPlat, description, prix, stock);
 
-        // Créer un nouvel objet JSON avec les données des champs
-        JSONObject platObject = new JSONObject();
-        platObject.put("plat", plat);
-        platObject.put("prix", prix);
-        platObject.put("stock", stock);
-        platObject.put("description", desc);
 
-        // Ajouter le nouvel objet JSON au tableau JSON existant
-        jsonArray.put(platObject);
-        System.out.println(platObject);
+            // Convertir l'objet Plat en un objet JSON
+            JSONObject platObject = new JSONObject();
+            platObject.put("image", plat.getImage());
+            platObject.put("plat", plat.getPlat());
+            platObject.put("description", plat.getDescription());
+            platObject.put("prix", plat.getPrix());
+            platObject.put("stock", plat.getStock());
 
-        // Enregistrer les modifications dans le fichier JSON
-        Files.write(Paths.get("./json/plat.json"), jsonArray.toString().getBytes());
+            // Ajouter le nouvel objet JSON au tableau JSON existant
+            jsonArray.put(platObject);
+
+            // Enregistrer les modifications dans le fichier JSON
+            Files.write(Paths.get("./json/plat.json"), jsonArray.toString().getBytes());
+        }
     }
 
     private Stage stage;
@@ -72,6 +73,20 @@ public class Addplatcontroller {
 
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    private void savePlat(ActionEvent event) throws Exception {
+        String nomPlat = platField.getText();
+        String description = descField.getText();
+        int prix = Integer.parseInt(prixField.getText());
+        int stock = Integer.parseInt(stockField.getText());
+
+        PlatManager platManager = new PlatManager();
+        platManager.ajouterPlat("https://example.com/images/nouveau-plat.jpg", nomPlat, description, prix, stock);
+
+        // Retourner à la vue précédente
+        comeback(event);
     }
 
 
