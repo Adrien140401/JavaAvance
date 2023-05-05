@@ -76,7 +76,7 @@ public class Hellocontroller {
         platslistdesc.setText(platdesc);
 
         int platstock = Integer.parseInt(stocks.stream()
-                .reduce("", (acc, stock) -> acc + "\n" + stock)
+                .reduce("", (acc, stock) -> acc + "\n" + stock )
                 .replaceAll("[^\\d]", ""));
         platsliststock.setText(platstock + "\n");
     }

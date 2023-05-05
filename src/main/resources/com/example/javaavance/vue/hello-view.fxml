@@ -8,7 +8,7 @@
    <Label fx:id="platLabel" text="Liste des plats :" />
    <Label fx:id="platsListLabel" />
    <Label fx:id="platslistprix" prefHeight="17.0" prefWidth="125.0" />
-   <Label fx:id="platsliststock" />
-   <Label fx:id="platslistdesc" />
+   <Label fx:id="platsliststock" prefHeight="17.0" prefWidth="96.0" />
+   <Label fx:id="platslistdesc" text="Label" />
    <Button mnemonicParsing="false" onAction="#switchScene" text="Créez un plat ?" />
 </VBox>
