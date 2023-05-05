@@ -120,7 +120,7 @@
                                 <mainClass>com.example.javaavance.Home</mainClass>
                             </classPath>
                             <jre>
-                                <path>/Users/floriancohen-joly/Downloads/jdk-20.0.1.jdk2/Contents/Home/bin</path>
+                                <path>/Users/adriene/Library/Java/JavaVirtualMachines/openjdk-20.0.1/Contents/Home</path>
                             </jre>
                             <versionInfo>
                                 <fileVersion>1.0.0.0</fileVersion>

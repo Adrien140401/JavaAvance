@@ -65,7 +65,12 @@
             </HBox>
             <Button mnemonicParsing="false" onAction="#createTable" text="Tables" />
             <Label fx:id="lblAddTable" />
-            <Button mnemonicParsing="false" onAction="#switchSceneCommande" text="Commande" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#switchSceneCommande" text="Commande" />
+                  <Button mnemonicParsing="false" onAction="#switchScenePlat" text="Plat" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>

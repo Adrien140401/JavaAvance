@@ -90,11 +90,11 @@ public class TableController{
 
         json = new JSONArray(dataJson);
 
-        // stream() permet de parcourir la liste
-        List<Table> tableList = IntStream.range(0, json.length())
-                .mapToObj(json::getJSONObject)
-                .map(obj -> new Table(obj.getInt("numeroTable"), obj.getInt("places"), obj.getBoolean("disponibilite")))
-                .collect(Collectors.toList());
+        // Déclare une liste de Table
+        List<Table> tableList = IntStream.range(0, json.length()) // stream un entier de 0 a json.length()
+                .mapToObj(json::getJSONObject) // map chaque entier du stream a un objet JSON. :: = methode reference utilisé pour créer une expression lambda
+                .map(obj -> new Table(obj.getInt("numeroTable"), obj.getInt("places"), obj.getBoolean("disponibilite"))) // map chaque JSONObject a un objet Table avec la valeur correspondante
+                .collect(Collectors.toList()); // récupere l'objet Table dans une nouvelle liste avec Collectors.toList() méthod
 
         ObservableList<Table> observableTableList = FXCollections.observableArrayList(tableList);
 
@@ -140,6 +140,14 @@ public class TableController{
 
     public void switchSceneCommande(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/com/example/javaavance/view/commande-user.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchScenePlat(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("/com/example/javaavance/view/hello-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
