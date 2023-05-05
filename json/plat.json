@@ -1,0 +1,20 @@
+[
+  {
+    "plat": "Burger",
+    "description": "Un délicieux burger fait maison",
+    "prix": 8,
+    "stock": 10
+  },
+  {
+    "plat": "Salade César",
+    "description": "Une salade fraîche avec des morceaux de poulet grillé et une sauce césar",
+    "prix": 7,
+    "stock": 5
+  },
+  {
+    "plat": "Pizza Margherita",
+    "description": "Une pizza classique avec de la mozzarella et des tomates",
+    "prix": 10,
+    "stock": 8
+  }
+]
