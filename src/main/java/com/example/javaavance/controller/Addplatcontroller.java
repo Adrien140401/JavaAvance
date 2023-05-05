@@ -67,7 +67,7 @@ public class Addplatcontroller {
 
 
     public void comeback(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/com/example/javaavance/vue/hello-view.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/com/example/javaavance/view/hello-view.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
 

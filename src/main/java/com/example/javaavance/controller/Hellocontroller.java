@@ -86,7 +86,7 @@ public class Hellocontroller {
         private Parent root;
 
     public void switchScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/com/example/javaavance/vue/createplat.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/com/example/javaavance/view/createplat.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
 
