@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaavance.controller.TableController">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="291.0">
+         <children>
+            <Label text="Tables">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ListView fx:id="lvListTable" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+            <Button fx:id="btnNavigateClient" mnemonicParsing="false" onAction="#switchSceneToClientController" text="Client" />
+            <HBox prefHeight="100.0" prefWidth="59.0">
+               <children>
+                  <HBox fx:id="lvListUsertTable" prefHeight="141.0" prefWidth="301.0">
+                     <children>
+                        <Label text="Assigner table : " />
+                        <TextField fx:id="txtLibreTable" prefHeight="20.0" prefWidth="160.0" />
+                        <ListView fx:id="lvListUser" prefHeight="100.0" prefWidth="185.0" />
+                        <Button mnemonicParsing="false" text="Assigne" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="291.0" prefHeight="400.0" prefWidth="309.0">
+         <children>
+            <Label text="Enregistrer Table : ">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="40.0" prefWidth="309.0">
+               <children>
+                  <Label text="N° de table :" />
+                  <TextField fx:id="txtNumTable" />
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="309.0">
+               <children>
+                  <Label text="Taille : " />
+                  <TextField fx:id="txtTailleTable" />
+               </children>
+            </HBox>
+            <HBox prefHeight="37.0" prefWidth="309.0">
+               <children>
+                  <Label text="Emplacement :" />
+                  <TextField fx:id="txtEmplacementTable" />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#createTable" text="Tables" />
+            <Label fx:id="lblAddTable" />
+            <Button mnemonicParsing="false" onAction="#switchSceneCommande" text="Commande" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
