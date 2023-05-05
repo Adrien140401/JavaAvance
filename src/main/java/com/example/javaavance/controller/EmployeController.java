@@ -41,7 +41,7 @@ public class EmployeController {
      * The constructor is called before the initialize() method.
      */
     public EmployeController() {
-        // TODO document why this constructor is empty
+        // Add some sample data
     }
 
     /**
