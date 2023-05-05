@@ -7,9 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.util.Callback;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -49,6 +48,16 @@ public class CommandeController implements Initializable {
         commande.setNumber(Integer.parseInt(txtNumComm.getText()));
         commande.setTable(Integer.parseInt(txtNumTable.getText()));
 
+        JSONArray json = new JSONArray(dataJson);
+        for (int i = 0; i < json.length(); i++) {
+            JSONObject obj = json.getJSONObject(i);
+            if (obj.getInt("table") == commande.getTable()) {
+                // Une commande existe déjà pour cette table, ne rien faire
+                lblResult.setText("Une commande est déjà assignée à cette table.");
+                return;
+            }
+        }
+
         list.put(new Commande(commande.getNumber(), commande.getTable(), commande.isStatus()).toJSON());
 
         try(FileWriter file = new FileWriter("./json/commande.json")) {
@@ -66,7 +75,7 @@ public class CommandeController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        JSONArray json = new JSONArray(dataJson);
+        json = new JSONArray(dataJson);
 
         List<Commande> tableList = IntStream.range(0, json.length())
                 .mapToObj(json::getJSONObject)
@@ -76,5 +85,61 @@ public class CommandeController implements Initializable {
         ObservableList<Commande> observableTableList = FXCollections.observableArrayList(tableList);
 
         lvListComm.setItems(observableTableList);
+
+        // Créer un bouton "Supprimer" pour chaque élément de la liste
+        Callback<ListView<Commande>, ListCell<Commande>> cellFactory = new Callback<>() {
+
+            public ListCell<Commande> call(ListView<Commande> lvListComm) {
+                return new ListCell<>() {
+                    @Override
+                    public void updateItem(Commande commande, boolean empty) {
+                        super.updateItem(commande, empty);
+                        if (!empty) {
+                            Button deleteBtn = new Button("Supprimer");
+                            deleteBtn.setOnAction(event -> {
+                                // Récupérer l'élément sélectionné
+                                Commande selectedTable = lvListComm.getSelectionModel().getSelectedItem();
+                                // Supprimer l'élément de la liste
+                                lvListComm.getItems().remove(selectedTable);
+                                // Mettre à jour le fichier JSON
+                                JSONArray json = new JSONArray(lvListComm.getItems());
+                                try (FileWriter file = new FileWriter("./json/commande.json")) {
+                                    file.write(json.toString());
+                                    file.flush();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                lblResult.setText("La table " + commande.getNumber() + " a été supprimé de la liste des tables");
+                            });
+                            setGraphic(deleteBtn);
+                            setText(commande.toString());
+                        } else {
+                            setGraphic(null);
+                            setText(null);
+                        }
+                    }
+                };
+            }
+        };
+        // Appliquer la factory de cellule à la ListView
+        lvListComm.setCellFactory(cellFactory);
+
+    }
+
+    // Changer le Status d'une commande
+    public void changeStatus(ActionEvent actionEvent) {
+        Commande selectedCommande = (Commande) lvListComm.getSelectionModel().getSelectedItem();
+        if (selectedCommande == null) {
+            lblResult.setText("Veuillez sélectionner une commande.");
+            return;
+        }
+        selectedCommande.setStatus(!selectedCommande.isStatus());
+        try (FileWriter file = new FileWriter("./json/commande.json")) {
+            file.write(list.toString());
+            file.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        lblResult.setText("Statut de la commande " + selectedCommande.getNumber() + " modifié.");
     }
 }

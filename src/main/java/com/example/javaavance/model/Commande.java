@@ -59,4 +59,13 @@ public class Commande {
         json.put("status", status);
         return json;
     }
+
+    public String toString() {
+        return "Commande{" +
+                "number=" + number +
+                ", table=" + table +
+                ", date=" + date +
+                ", status=" + status +
+                '}';
+    }
 }

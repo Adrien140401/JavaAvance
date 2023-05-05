@@ -60,6 +60,17 @@ public class TableController{
         table.setPlaces(Integer.parseInt(txtTailleTable.getText()));
         table.setEmplacement(txtEmplacementTable.getText());
 
+
+        JSONArray json = new JSONArray(dataJson);
+
+        for (int i = 0; i < json.length(); i++) {
+            JSONObject obj = json.getJSONObject(i);
+            if (obj.getInt("numeroTable") == table.getNumeroTable()) {
+                lblAddTable.setText("Cette Table existe déjà.");
+                return;
+            }
+        }
+
         list.put(new Table(table.getNumeroTable(), table.getPlaces(), table.isDisponibilite()).toJSON());
 
         try(FileWriter file = new FileWriter(path)) {
@@ -69,8 +80,6 @@ public class TableController{
             throw new RuntimeException(e);
         }
 
-        //System.out.println(list.toString());
-
         lblAddTable.setText("La table " + table.getNumeroTable() + " a été ajouté à la liste des tables");
 
         try {
@@ -79,7 +88,7 @@ public class TableController{
             throw new RuntimeException(e);
         }
 
-        JSONArray json = new JSONArray(dataJson);
+        json = new JSONArray(dataJson);
 
         // stream() permet de parcourir la liste
         List<Table> tableList = IntStream.range(0, json.length())

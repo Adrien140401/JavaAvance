@@ -36,6 +36,7 @@
                </children>
             </VBox>
             <Label fx:id="lblResult" />
+            <Button mnemonicParsing="false" onAction="#changeStatus" text="Dispo Table" />
          </children>
       </HBox>
       <ListView fx:id="lvListComm" layoutY="271.0" prefHeight="200.0" prefWidth="600.0" />
