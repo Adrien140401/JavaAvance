@@ -5,7 +5,7 @@ import org.json.JSONObject;
 public class Table{
 
     //Constructeur
-    public Table(int numeroTable, int places, String emplacement, boolean disponibilite) {
+    public Table(int numeroTable, int places, boolean disponibilite) {
         this.numeroTable = numeroTable;
         this.places = places;
         this.emplacement = emplacement;

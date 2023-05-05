@@ -1,6 +1,5 @@
 package com.example.javaavance.controller;
 
-import java.net.URL;
 import java.util.*;
 
 import com.example.javaavance.model.Table;
@@ -9,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,6 +20,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class TableController{
     private Scene scene;
@@ -41,7 +41,7 @@ public class TableController{
 
     String path = "./json/table.json";
 
-    Table table = new Table(0, 0, "", true);
+    Table table = new Table(0, 0, true);
 
     JSONArray list = new JSONArray();
 
@@ -60,7 +60,7 @@ public class TableController{
         table.setPlaces(Integer.parseInt(txtTailleTable.getText()));
         table.setEmplacement(txtEmplacementTable.getText());
 
-        list.put(new Table(table.getNumeroTable(), table.getPlaces(), table.getEmplacement(), table.isDisponibilite()).toJSON());
+        list.put(new Table(table.getNumeroTable(), table.getPlaces(), table.isDisponibilite()).toJSON());
 
         try(FileWriter file = new FileWriter(path)) {
             file.write(list.toString());
@@ -80,13 +80,12 @@ public class TableController{
         }
 
         JSONArray json = new JSONArray(dataJson);
-        List<Table> tableList = new ArrayList<>();
 
-        for(int i = 0; i < json.length(); i++) {
-            JSONObject obj = json.getJSONObject(i);
-            Table table = new Table(obj.getInt("numeroTable"), obj.getInt("places"), obj.getString("emplacement"), obj.getBoolean("disponibilite"));
-            tableList.add(table);
-        }
+        // stream() permet de parcourir la liste
+        List<Table> tableList = IntStream.range(0, json.length())
+                .mapToObj(json::getJSONObject)
+                .map(obj -> new Table(obj.getInt("numeroTable"), obj.getInt("places"), obj.getBoolean("disponibilite")))
+                .collect(Collectors.toList());
 
         ObservableList<Table> observableTableList = FXCollections.observableArrayList(tableList);
 
@@ -114,6 +113,7 @@ public class TableController{
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
+                                lblAddTable.setText("La table " + table.getNumeroTable() + " a été supprimé de la liste des tables");
                             });
                             setGraphic(deleteBtn);
                             setText(table.toString());
@@ -127,5 +127,13 @@ public class TableController{
         };
         // Appliquer la factory de cellule à la ListView
         lvListTable.setCellFactory(cellFactory);
+    }
+
+    public void switchSceneCommande(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("/com/example/javaavance/view/commande-user.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
