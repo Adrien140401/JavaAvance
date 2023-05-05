@@ -9,12 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 
 public class EmployeController {
@@ -46,6 +41,7 @@ public class EmployeController {
      * The constructor is called before the initialize() method.
      */
     public EmployeController() {
+        // TODO document why this constructor is empty
     }
 
     /**
